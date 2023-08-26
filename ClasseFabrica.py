@@ -101,18 +101,17 @@ class Fabrica:
             if(self.get_material_from_linha(linha,i)<=0):
                 print("materias insuficientes... ")
                 return
-        for i in range(10):
+        for i in range(10): # tendo todos materias, remove eles da linha
             self.remover_material(linha,i)
-        self.remover_quantidade(produto,1)
+        self.remover_quantidade(produto,1) #remove um produto da fábrica a ser feito
         print("materiais utilizados ...")
         print("fabricando produto ...")
-        self.adicionar_produto(linha,produto)
+        self.adicionar_produto(linha,produto) # adiciona o produto ao buffer no final da linha
         print("produto ", produto," na linha ",linha," finalizado ...")
     
     def enviar_produto(self,linha,produto):
-        # falta implementar uma forma de verificar se tem produto
         qtd_p = self.get_linha_p(linha)
-        if(qtd_p[produto]>=1):
+        if(qtd_p[produto]>=1): #verifica se tem o produto no buffer da linha
             self.remover_produto(linha,produto)
             print("produto ", produto," da linha ",linha, " enviado para o estoque ...")
         else:
