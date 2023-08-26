@@ -6,6 +6,6 @@ client.connect("localhost", 1883, 60)  # Conectando ao broker em localhost na po
 
 # Publica uma mensagem
 client.publish("meu/topico", "Olá, MQTT!")
-
+print("teste")
 # Desconecta
 client.disconnect()
