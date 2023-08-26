@@ -1,6 +1,9 @@
 #Aqui temos os principios da criação das fabricas
 class Fabrica:
     def __init__(self, id):
+        self.QuantidadeParaFabricar = [] #quantidade de cada produto a ser fabricada
+        for i in range(5):
+            self.QuantidadeParaFabricar.append(0)
         if (id == 1):
             self.id = 1  # se for a fabrica 1, vai criar 5 linhas de produção
             self.LinhaP = []
@@ -55,6 +58,12 @@ class Fabrica:
     def get_linha_p(self, linha): # metodo para retornar uma linha especifica de produtos finalizados
         return self.Produtos[linha]
 
+    def get_quantidade(self): # metodo para retornar a quantidade de produtos a serem fabricados
+        return self.QuantidadeParaFabricar
+
+    def get_quantidade_p(self,produto): # metodo para retornar quantos produtos x devem ser fabricados
+        return self.QuantidadeParaFabricar[produto]
+
     def inserir_material(self, linha,material): # metodo para inserir em uma linha x um material y
         self.LinhaP[linha][material] = self.LinhaP[linha][material] + 1
 
@@ -73,9 +82,38 @@ class Fabrica:
     def adicionar_produtos(self, linha,material,qtde):# metodo para inserir produto finalizado em uma linha x um material y uma quantidade z
         self.Produtos[linha][material] = self.Produtos[linha][material] + qtde
 
-    def remover_produto(self, linha,material): # metodo para remover produto em uma linha x um material y
-        self.Produtos[linha][material] = self.Produtos[linha][material] - 1
+    def remover_produto(self, linha,produto): # metodo para remover produto em uma linha x um material y
+        self.Produtos[linha][produto] = self.Produtos[linha][produto] - 1
 
-    def remover_produtos(self, linha,material,qtde):# metodo para remover produto em uma linha x um material y uma quantidade z
-        self.Produtos[linha][material] = self.Produtos[linha][material] - qtde
+    def remover_produtos(self, linha,produto,qtde):# metodo para remover produto em uma linha x um material y uma quantidade z
+        self.Produtos[linha][produto] = self.Produtos[linha][produto] - qtde
+
+    def adicionar_quantidade(self,produto,quantidade): # adiciona uma quantidade de produtos x a serem produzidos
+        self.QuantidadeParaFabricar[produto] = self.QuantidadeParaFabricar[produto] + quantidade
     
+    def remover_quantidade(self,produto,quantidade): # adiciona uma quantidade de produtos x a serem produzidos
+        self.QuantidadeParaFabricar[produto] = self.QuantidadeParaFabricar[produto] - quantidade
+        print("-1 produto a fazer ...")
+
+    def fabricar_produto(self,linha,produto):
+        
+        for i in range(10): # verifica se tem todos os materias
+            if(self.get_material_from_linha(linha,i)<=0):
+                print("materias insuficientes... ")
+                return
+        for i in range(10):
+            self.remover_material(linha,i)
+        self.remover_quantidade(produto,1)
+        print("materiais utilizados ...")
+        print("fabricando produto ...")
+        self.adicionar_produto(linha,produto)
+        print("produto ", produto," na linha ",linha," finalizado ...")
+    
+    def enviar_produto(self,linha,produto):
+        # falta implementar uma forma de verificar se tem produto
+        qtd_p = self.get_linha_p(linha)
+        if(qtd_p[produto]>=1):
+            self.remover_produto(linha,produto)
+            print("produto ", produto," da linha ",linha, " enviado para o estoque ...")
+        else:
+            print("erro, produto não estava na linha")
