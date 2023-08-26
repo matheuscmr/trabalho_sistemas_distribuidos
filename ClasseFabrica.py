@@ -60,4 +60,22 @@ class Fabrica:
 
     def inserir_materiais(self, linha,material,qtde):# metodo para inserir em uma linha x um material y uma quantidade z
         self.LinhaP[linha][material] = self.LinhaP[linha][material] + qtde
+
+    def remover_material(self, linha,material): # metodo para remover em uma linha x um material y
+        self.LinhaP[linha][material] = self.LinhaP[linha][material] - 1
+
+    def remover_materiais(self, linha,material,qtde):# metodo para remover material em uma linha x um material y uma quantidade z
+        self.LinhaP[linha][material] = self.LinhaP[linha][material] - qtde
+    
+    def adicionar_produto(self, linha,material): # metodo para inserir produto finalizado em uma linha x um material y
+        self.Produtos[linha][material] = self.Produtos[linha][material] + 1
+
+    def adicionar_produtos(self, linha,material,qtde):# metodo para inserir produto finalizado em uma linha x um material y uma quantidade z
+        self.Produtos[linha][material] = self.Produtos[linha][material] + qtde
+
+    def remover_produto(self, linha,material): # metodo para remover produto em uma linha x um material y
+        self.Produtos[linha][material] = self.Produtos[linha][material] - 1
+
+    def remover_produtos(self, linha,material,qtde):# metodo para remover produto em uma linha x um material y uma quantidade z
+        self.Produtos[linha][material] = self.Produtos[linha][material] - qtde
     
