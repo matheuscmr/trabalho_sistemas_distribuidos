@@ -13,9 +13,10 @@ from ClasseFabrica import Fabrica
 
 fabrica1 = Fabrica(2)
 print(fabrica1.get_id())
-print(fabrica1.get_linhas())
+print(fabrica1.get_linhas_m())
 fabrica1.inserir_material(1,1)
 fabrica1.inserir_material(1,1)
 fabrica1.inserir_material(1,2)
 fabrica1.inserir_material(1,2)
-print(fabrica1.get_linhas())
+print(fabrica1.get_linhas_m())
+print(fabrica1.get_material(1))
