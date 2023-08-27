@@ -76,11 +76,11 @@ class Fabrica:
     def remover_materiais(self, linha,material,qtde):# metodo para remover material em uma linha x um material y uma quantidade z
         self.LinhaP[linha][material] = self.LinhaP[linha][material] - qtde
     
-    def adicionar_produto(self, linha,material): # metodo para inserir produto finalizado em uma linha x um material y
-        self.Produtos[linha][material] = self.Produtos[linha][material] + 1
+    def adicionar_produto(self, linha,produto): # metodo para inserir produto finalizado em uma linha x um material y
+        self.Produtos[linha][produto] = self.Produtos[linha][produto] + 1
 
-    def adicionar_produtos(self, linha,material,qtde):# metodo para inserir produto finalizado em uma linha x um material y uma quantidade z
-        self.Produtos[linha][material] = self.Produtos[linha][material] + qtde
+    def adicionar_produtos(self, linha,produto,qtde):# metodo para inserir produto finalizado em uma linha x um material y uma quantidade z
+        self.Produtos[linha][produto] = self.Produtos[linha][produto] + qtde
 
     def remover_produto(self, linha,produto): # metodo para remover produto em uma linha x um material y
         self.Produtos[linha][produto] = self.Produtos[linha][produto] - 1
@@ -113,6 +113,14 @@ class Fabrica:
         qtd_p = self.get_linha_p(linha)
         if(qtd_p[produto]>=1): #verifica se tem o produto no buffer da linha
             self.remover_produto(linha,produto)
+            print("produto ", produto," da linha ",linha, " enviado para o estoque ...")
+        else:
+            print("erro, produto não estava na linha")
+    
+    def enviar_produtos(self,linha,produto):
+        qtd_p = self.get_linha_p(linha)
+        if(qtd_p[produto]>=1): #verifica se tem o produto no buffer da linha
+            self.remover_produtos(linha,produto,qtd_p[produto])
             print("produto ", produto," da linha ",linha, " enviado para o estoque ...")
         else:
             print("erro, produto não estava na linha")

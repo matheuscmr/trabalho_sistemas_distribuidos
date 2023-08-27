@@ -8,7 +8,8 @@ WORKDIR ./
 # Em seguida, instala a biblioteca paho-mqtt para Python.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    && pip install paho-mqtt
+    && pip install paho-mqtt \
+    && apt install mosquitto mosquitto-clients
 
 
 # Define o comando padrão a ser executado
