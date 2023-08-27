@@ -31,10 +31,19 @@ def on_connect(client, userdata, flags, rc):
 # Callback quando uma mensagem é recebida.
 def on_message(client, userdata, message):
     print(f"Mensagem recebida: {message.payload.decode()} no tópico {message.topic}")
-    
+    mensagem = message.payload.decode()
+    tipo, quantidade = mensagem.split()
+    quantidade = int(quantidade)
     # Se a mensagem recebida for "executar_funcao", execute a função.
-    if message.payload.decode() == "executar_funcao":
-        envia_estoque()
+    if tipo == "produzir":
+        produtos = fabrica1.get_linha_p(1)
+        if quantidade >= produtos[1] :
+            quantidade = quantidade - produtos[1]
+            fabrica1.adicionar_quantidade(1,int(quantidade))
+            print("recebido do estoque pedido de produção")
+            print("pedido de produção :")
+            print(fabrica1.get_quantidade_p(1))
+    envia_estoque()
 
 # Configuração básica
 fabrica1 = Fabrica(1)
