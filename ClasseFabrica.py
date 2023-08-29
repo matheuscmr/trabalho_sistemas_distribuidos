@@ -20,7 +20,7 @@ class Fabrica:
                 buffer_m = []  # criação do vetor buffer de materias, a principio tera apenas 10 materiais, cada posição indicará a quantidade de cada material
                 buffer_p = []  # criação do vetor buffer de produtos feitos.
                 for j in range(10):
-                    buffer_m.append(0)
+                    buffer_m.append(0) #criar um vetore de 10 posicoes onde cada posicao representa a quantidade de materia de um tipo [0] = x , [1] = y
                 for j in range(5):
                     buffer_p.append(0)
 
