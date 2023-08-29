@@ -20,15 +20,15 @@ def on_message(client, userdata, message):
     mensagem, tipo, valor = mensagens.split()
     if mensagem == "estoque":
         estoque.add_Estoque(estoque.get_Estoque() + int(valor))
-    if estoque.get_Estoque() >= estoque.get_Pedidos():
-        estoque.remove_Estoque(estoque.get_Estoque() - estoque.get_Pedidos())
-        estoque.remove_Pedidos(estoque.get_Pedidos())
-    else:
-        print("pedido maior que o estoque ...")
-        estoque.remove_Pedidos(estoque.get_Pedidos() - estoque.get_Estoque())
-        estoque.remove_Estoque(estoque.get_Estoque())
-    print("estoque atual :")
-    print(estoque.get_Estoque())
+        if estoque.get_Estoque() >= estoque.get_Pedidos():
+            estoque.remove_Estoque(estoque.get_Pedidos())
+            estoque.remove_Pedidos(estoque.get_Pedidos())
+        else:
+            print("pedido maior que o estoque ...")
+            estoque.remove_Pedidos(estoque.get_Estoque())
+            estoque.remove_Estoque(estoque.get_Estoque())
+        print("estoque atual :")
+        print(estoque.get_Estoque())
 
 
 def gerar_pedidos():  # função que provisoriamente ira gerar um número de pedidos do produto 1
