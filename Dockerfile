@@ -9,7 +9,7 @@ WORKDIR ./
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     && pip install paho-mqtt \
-    && apt install mosquitto mosquitto-clients
+    && apt install mosquitto mosquitto-clients -y --no-install-recommends
 
 
 # Define o comando padrão a ser executado
