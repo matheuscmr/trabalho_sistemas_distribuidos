@@ -4,10 +4,18 @@ class Fabrica:
         self.QuantidadeParaFabricar = []  # quantidade de cada produto a ser fabricada
         for i in range(5):
             self.QuantidadeParaFabricar.append(0)
+
+        #Fabricar 5 produtos diferentes
+
+        #Se for a fabrica 1, vai criar 5 linhas de produção
+
         if (id == 1):
             self.id = 1  # se for a fabrica 1, vai criar 5 linhas de produção
             self.LinhaP = []
             self.Produtos = []
+
+            # Criação de 5 linhas de produção, cada linha terá 10 materias e 5 produtos
+
             for i in range(5):
                 buffer_m = []  # criação do vetor buffer de materias, a principio tera apenas 10 materiais, cada posição indicará a quantidade de cada material
                 buffer_p = []  # criação do vetor buffer de produtos feitos.
@@ -15,12 +23,22 @@ class Fabrica:
                     buffer_m.append(0)
                 for j in range(5):
                     buffer_p.append(0)
-                self.LinhaP.append(buffer_m)
-                self.Produtos.append(buffer_p)
+
+                # 10 materias e 5 produtos adicionados a cada linha de produção
+
+
+                self.LinhaP.append(buffer_m) # adiciona o buffer de materias a linha de produção
+                self.Produtos.append(buffer_p) # adiciona o buffer de produtos a linha de produção
+
+        # Se for a fabrica 2, vai criar 8 linhas de produção
+
         else:  # aqui faremos a mesma coisa para a fabrica 2, a principal diferença é o numero de linhas de produção
             self.id = 2
             self.LinhaP = []
             self.Produtos = []
+
+            # Criação de 8 linhas de produção, cada linha terá 10 materias e 5 produtos
+
             for i in range(8):
                 buffer_m = []
                 buffer_p = []
@@ -28,8 +46,11 @@ class Fabrica:
                     buffer_m.append(0)
                 for j in range(5):
                     buffer_p.append(0)
-                self.LinhaP.append(buffer_m)
-                self.Produtos.append(buffer_p)
+
+                # 10 materias e 5 produtos adicionados a cada linha de produção
+
+                self.LinhaP.append(buffer_m) # adiciona o buffer de materias a linha de produção
+                self.Produtos.append(buffer_p) # adiciona o buffer de produtos a linha de produção
 
     def get_id(self):  # metodo para retornar o id da fabrica
         return self.id
