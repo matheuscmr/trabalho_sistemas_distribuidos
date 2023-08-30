@@ -9,7 +9,7 @@
 # Desconecta
 # client.disconnect()
 
-from ClasseAlmoxarifado import Almoxarifado
+from ClasseFornecedor import Fornecedor
 
 import paho.mqtt.client as mqtt
 
@@ -26,13 +26,14 @@ def on_message(client, userdata, message):
     tipo, quantidade = mensagem.split()
     quantidade = int(quantidade)
 
-    #Com essa mensagem, o almoxarifado tem que fazer o pedido de peças para o forncecedor
+    #Com essa mensagem, o fornecedor tem que enviar o produto pro almoxarifado
 
     #TODO
 
+
 # Configuração básica
-almoxarifado = Almoxarifado(1)
-almoxarifado.pedir_produto(1, 10)
+fornecedor = Fornecedor(1)
+fornecedor.liberar_produto(1, 10)
 broker_address = "localhost"
 port = 1883
 
