@@ -46,7 +46,7 @@ def on_message(client, userdata, message):
         if(almoxarifado.get_estoque()>= int(quantidade)):
             enviar_material()
         else:
-            solicita_fornecedor(3 + almoxarifado.get_fprodutos):
+            solicita_fornecedor(3 + almoxarifado.get_fprodutos)
 
 
     #Com essa mensagem, o almoxarifado tem que fazer o pedido de peças para o forncecedor
@@ -55,10 +55,9 @@ def on_message(client, userdata, message):
 
 # Configuração básica
 almoxarifado = Almoxarifado(1)
-almoxarifado.pedir_produto(1, 10)
 broker_address = "localhost"
 port = 1883
-
+almoxarifado.add_estoque(10)
 # O nome foi alterado para refletir que ele pode ser tanto publisher quanto subscriber.
 client = mqtt.Client("Client1")
 client.on_connect = on_connect

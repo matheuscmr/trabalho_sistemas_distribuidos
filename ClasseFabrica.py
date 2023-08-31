@@ -134,13 +134,15 @@ class Fabrica:
         print("-1 produto a fazer ...")
 
     def fabricar_produto(self, linha, produto):
-
-        for i in range(10):  # verifica se tem todos os materias
-            if (self.get_material_from_linha(linha, i) <= 0):
+        # vou comentar essa função que servia apra 10 materias, vou fazer com 1
+       # for i in range(10):  # verifica se tem todos os materias
+            #if (self.get_material_from_linha(linha, i) <= 0):
+              #  print("materias insuficientes... ")
+               # return
+        if (self.get_material_from_linha(linha, 1) <= 0):
                 print("materias insuficientes... ")
-                return
-        for i in range(10):  # tendo todos materias, remove eles da linha
-            self.remover_material(linha, i)
+                return "error"
+        self.remover_material(linha, 1)
         # remove um produto da fábrica a ser feito
         self.remover_quantidade(produto, 1)
         print("materiais utilizados ...")

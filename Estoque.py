@@ -17,7 +17,7 @@ def on_message(client, userdata, message):
     print(
         f"Mensagem de resposta recebida: {message.payload.decode()} no tópico {message.topic}")
     mensagens = message.payload.decode()
-    mensagem, tipo, valor = mensagens.split()
+    mensagem, valor = mensagens.split()
     if mensagem == "estoque":
         estoque.add_Estoque(estoque.get_Estoque() + int(valor))
         if estoque.get_Estoque() >= estoque.get_Pedidos():
@@ -55,9 +55,10 @@ if (estoque.get_Pedidos() > estoque.get_Estoque()):
     print("solicitando a fabrica que novos produtos sejam enviados ...")
     client.publish(topic, "produzir "+str(estoque.get_Pedidos()))
 else:
+    pedidos = estoque.get_Pedidos()
     estoque.remove_Produtos(estoque.get_Produtos() - estoque.get_Pedidos())
     estoque.remove_Pedidos(estoque.get_Pedidos())
-    print(pedidosT, " produtos removidos do estoque")
+    print(pedidos, " produtos removidos do estoque")
 # Publica uma mensagem
 # Mantém o cliente ouvindo por mensagens no tópico "resposta/topico"
 client.loop_forever()
