@@ -1,9 +1,8 @@
 from ClasseAlmoxarifado import Almoxarifado
 import paho.mqtt.client as mqtt
 
-def enviar_material(client, almoxarifado):
+def enviar_material(client, almoxarifado, quantidade):  # Adicionei a quantidade como argumento
     print("Função enviar material executada!")
-    quantidade = almoxarifado.get_estoque()
     almoxarifado.remove_estoque(quantidade)
     mensagem = f"envio {quantidade}"
     print(mensagem)
@@ -14,34 +13,36 @@ def solicita_fornecedor(client, almoxarifado, qdd):
     print("Função solicitar fornecedor executada!")
     mensagem = f"fornecedor {qdd}"
     print(mensagem)
-    client.publish("almoxarifado/fornecedor", mensagem)  # Tópico para solicitar material ao fornecedor
+    client.publish("almoxarifado/fornecedor", mensagem)
 
 def on_connect(client, userdata, flags, rc):
     print("Conectado com sucesso!")
     client.subscribe("fabrica/almoxarifado")
-    client.subscribe("fornecedor/almoxarifado/resposta")  # Tópico para receber resposta do fornecedor
+    client.subscribe("almoxarifado/fornecedor")
 
 def on_message(client, userdata, message):
     almoxarifado = userdata
     print(f"Mensagem recebida: {message.payload.decode()} no tópico {message.topic}")
-    mensagem, quantidade = message.payload.decode().split()
-    quantidade = int(quantidade)
+    mensagem, qtd = message.payload.decode().split()
+    qtd = int(qtd)
 
     if mensagem == "solicita":
-        if almoxarifado.get_estoque() >= quantidade:
-            enviar_material(client, almoxarifado)
+        if almoxarifado.get_estoque() >= qtd:
+            enviar_material(client, almoxarifado, qtd)
         else:
-            solicita_fornecedor(client, almoxarifado, 3 + almoxarifado.get_fprodutos)
+            print("solicitar ao fonecedor")
+            solicita_fornecedor(client, almoxarifado, qtd - almoxarifado.get_estoque())
 
     elif mensagem == "envio":  # Esta é a resposta do fornecedor
-        almoxarifado.add_estoque(quantidade)
-        print(f"Adicionado ao estoque: {quantidade}")
+        almoxarifado.add_estoque(qtd)
+        print(f"Adicionado ao estoque: {qtd}")
 
 # Configuração básica
-almoxarifado = Almoxarifado(1)
+almoxarifado = Almoxarifado()
+print("so passei aqui uma vez")
+almoxarifado.add_estoque(10)
 broker_address = "localhost"
 port = 1883
-almoxarifado.add_estoque(10)
 
 client = mqtt.Client(userdata=almoxarifado)
 client.on_connect = on_connect

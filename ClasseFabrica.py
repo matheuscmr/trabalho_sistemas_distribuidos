@@ -51,7 +51,7 @@ class Fabrica:
 
                 self.LinhaP.append(buffer_m) # adiciona o buffer de materias a linha de produção
                 self.Produtos.append(buffer_p) # adiciona o buffer de produtos a linha de produção
-
+    
     def get_id(self):  # metodo para retornar o id da fabrica
         return self.id
 
@@ -131,7 +131,7 @@ class Fabrica:
     # adiciona uma quantidade de produtos x a serem produzidos
     def remover_quantidade(self, produto, quantidade):
         self.QuantidadeParaFabricar[produto] = self.QuantidadeParaFabricar[produto] - quantidade
-        print("-1 produto a fazer ...")
+        print("um produto feito")
 
     def fabricar_produto(self, linha, produto):
         # vou comentar essa função que servia apra 10 materias, vou fazer com 1
@@ -153,10 +153,9 @@ class Fabrica:
 
     def enviar_produto(self, linha, produto):
         qtd_p = self.get_linha_p(linha)
-        if (qtd_p[produto] >= 1):  # verifica se tem o produto no buffer da linha
+        if (qtd_p[produto] > 0):  # verifica se tem o produto no buffer da linha
             self.remover_produto(linha, produto)
-            print("produto ", produto, " da linha ",
-                  linha, " enviado para o estoque ...")
+            print("produto ", produto, " da linha ", linha, " enviado para o estoque ...")
         else:
             print("erro, produto não estava na linha")
 
@@ -164,7 +163,15 @@ class Fabrica:
         qtd_p = self.get_linha_p(linha)
         if (qtd_p[produto] >= 1):  # verifica se tem o produto no buffer da linha
             self.remover_produtos(linha, produto, qtd_p[produto])
-            print("produto ", produto, " da linha ",
-                  linha, " enviado para o estoque ...")
+            print("produto ", produto, " da linha ",linha, " enviado para o estoque ...")
         else:
             print("erro, produto não estava na linha")
+    def material_suficiente(self, linha):
+        """Verifica se há material suficiente na linha para fabricar o produto."""
+        if self.get_material_from_linha(linha, 1) > 0:
+            return True
+        return False
+
+    def get_material_disponivel(self, linha):
+        """Retorna a quantidade de material disponível na linha."""
+        return self.get_material_from_linha(linha, 1)

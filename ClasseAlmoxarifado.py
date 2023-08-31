@@ -1,11 +1,8 @@
 class Almoxarifado:
-    def __init__(self, id):
-        self.id = id
+    def __init__(self):
         self.estoque = 0
         self.fabricarProdutos = 0 #quantidade de produtos a serem fabricados
 
-    def get_id(self):
-        return self.id
 
     def get_estoque(self):
         return self.estoque
