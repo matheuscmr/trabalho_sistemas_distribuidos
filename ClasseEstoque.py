@@ -16,7 +16,7 @@ class Estoque:
         self.Pedidos = self.Pedidos + quantidade
 
     def remove_Estoque(self, quantidade):
-        self.Estoque = self.Estoque - quantidade
+        self.Estoque = self.Estoque - int(quantidade)
 
     def remove_Pedidos(self, quantidade):
-        self.Pedidos = self.Pedidos - quantidade
+        self.Pedidos = self.Pedidos - int(quantidade)
