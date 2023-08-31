@@ -15,7 +15,7 @@ import paho.mqtt.client as mqtt
 
 
 def envia_estoque():  # teste de envio de estoque do produto 1 da linha 1
-    print("Função executada!")
+    print("Função envia estoque executada!")
     produtos = fabrica1.get_linha_p(1)
     mensagem = "estoque 1 "+str(produtos[1])
     print(mensagem)
@@ -24,6 +24,12 @@ def envia_estoque():  # teste de envio de estoque do produto 1 da linha 1
     client.publish("resposta/topico", mensagem)
 
 # Callback quando conectado.
+
+def solicita_material():  # teste de envio de estoque do produto 1 da linha 1
+    print("Função solicita material executada!")
+    mensagem = "solicita "+ str(fabrica1.QuantidadeParaFabricar[1]) # solicita x * o numero de produtos que eu quero fabricar
+    print(mensagem)
+    client.publish("resposta/topico", mensagem)
 
 
 def on_connect(client, userdata, flags, rc):

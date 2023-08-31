@@ -13,6 +13,23 @@ from ClasseAlmoxarifado import Almoxarifado
 
 import paho.mqtt.client as mqtt
 
+
+def enviar_material():
+    print("Função enviar material executada!")
+    quantidade = almoxarifado.get_estoque()
+    almoxarifado.remove_estoque(quantidade)
+    mensagem = "envio "+ str(quantidade) # solicita x * o numero de produtos que eu quero fabricar
+    print(mensagem)
+    client.publish("resposta/topico", mensagem)
+    almoxarifado.set_fprodutos((almoxarifado.get_fprodutos() - quantidade))
+
+
+def solicita_fornecedor(qdd):
+    print("Função solicitar fornecedor executada!")
+    mensagem = "fornecedor "+ qdd # solicita x * o numero de produtos que eu quero fabricar
+    print(mensagem)
+    client.publish("resposta/topico", mensagem)
+
 # Callback quando conectado.
 def on_connect(client, userdata, flags, rc):
     print("Conectado com o código:", rc)
@@ -25,6 +42,12 @@ def on_message(client, userdata, message):
     mensagem = message.payload.decode()
     tipo, quantidade = mensagem.split()
     quantidade = int(quantidade)
+    if(tipo == "solicita"):
+        if(almoxarifado.get_estoque()>= int(quantidade)):
+            enviar_material()
+        else:
+            solicita_fornecedor(3 + almoxarifado.get_fprodutos):
+
 
     #Com essa mensagem, o almoxarifado tem que fazer o pedido de peças para o forncecedor
 

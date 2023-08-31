@@ -50,7 +50,7 @@ estoque.add_Pedidos(3)
 time.sleep(3)
 if (estoque.get_Pedidos() > estoque.get_Estoque()):
     print("pedido maior que o numero em estoque...")
-    estoque.remove_Pedidos(estoque.get_Pedidos() - estoque.get_Estoque())
+    estoque.remove_Pedidos(estoque.get_Pedidos() -  estoque.get_Estoque())
     estoque.remove_Estoque(estoque.get_Estoque())
     print("solicitando a fabrica que novos produtos sejam enviados ...")
     client.publish(topic, "produzir "+str(estoque.get_Pedidos()))
